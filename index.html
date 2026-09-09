@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宋弈雪 | UX-动效设计师作品集</title>
+  <style>
+    :root {
+      --bg-white: #ffffff;
+      --text-black: #0f0f11;
+      --text-gray: #6e6e73;
+      --accent-lime: #ccff00;
+      --accent-purple: #6330ff;
+      --accent-purple-light: #e0d5ff;
+      --dark-card-bg: #121214;
+      --dark-card-inner: #1c1c1f;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background-color: var(--bg-white);
+      color: var(--text-black);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* 全局容器流式响应式：宽度随网页缩放自适应 */
+    nav, .hero-container, .hero-showreel-section, .resume-section {
+      width: 90%;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* 顶部导航 */
+    nav {
+      padding: 1.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-links { display: flex; gap: 2rem; font-weight: 600; font-size: 0.95rem; }
+    .nav-links a { color: var(--text-black); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent-purple); }
+    .brand-logo { font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+    .brand-logo::before {
+      content: "⚛";
+      color: var(--accent-purple);
+      font-size: 1.4rem;
+    }
+    .btn-cta {
+      background: var(--text-black);
+      color: #fff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .btn-cta:hover { transform: scale(1.05); background: var(--accent-purple); }
+
+    /* Hero 标语区 */
+    .hero-container {
+      margin-top: 3rem;
+      margin-bottom: 5rem;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-tagline {
+      color: var(--text-gray);
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+      max-width: 80%;
+      margin: 0 auto;
+    }
+
+    .highlight-lime {
+      background: var(--accent-lime);
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      display: inline-block;
+      color: var(--text-black);
+    }
+
+    .purple-badge-inline {
+      background: var(--accent-purple);
+      color: #fff;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      vertical-align: middle;
+      margin: 0 4px;
+    }
+
+    /* 贴纸卡片 */
+    .sticker {
+      position: absolute;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease;
+    }
+    .sticker:hover { transform: scale(1.05) rotate(0deg) !important; }
+
+    .sticker-left {
+      top: -5%;
+      left: 0;
+      width: 12vw;
+      max-width: 160px;
+      min-width: 100px;
+      aspect-ratio: 4 / 5;
+      transform: rotate(-6deg);
+      background: var(--accent-lime);
+      padding: 6px;
+      z-index: 2;
+    }
+    .sticker-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .sticker-tag {
+      top: -10%;
+      right: 2%;
+      background: var(--accent-purple);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transform: rotate(4deg);
+      text-align: right;
+      line-height: 1.3;
+      z-index: 3;
+    }
+
+    .sticker-right {
+      top: 25%;
+      right: 0;
+      width: 11vw;
+      max-width: 150px;
+      min-width: 90px;
+      aspect-ratio: 3 / 4;
+      transform: rotate(5deg);
+      background: var(--accent-purple);
+      padding: 6px;
+      z-index: 2;
+    }
+    .sticker-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .scroll-down {
+      margin-top: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .scroll-arrow {
+      background: var(--accent-purple);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    /* SHOWREEL & 视频窗口自适应 (16:9) */
+    .hero-showreel-section {
+      margin-bottom: 5rem;
+    }
+    
+    .hero-banner {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      border: 2px solid var(--text-black);
+    }
+
+    .hero-banner video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 简历模块 */
+    .resume-section {
+      margin-bottom: 5rem;
+    }
+    .resume-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .resume-header h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; }
+    .resume-header p { color: var(--text-gray); margin-top: 8px; }
+
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2.5rem;
+    }
+
+    .resume-card {
+      background: #f7f7f8;
+      border-radius: 24px;
+      padding: 2rem;
+      border: 1px solid #e5e5ea;
+    }
+
+    .resume-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--accent-purple);
+    }
+
+    .skill-tag {
+      display: inline-block;
+      background: #ffffff;
+      border: 1px solid #d1d1d6;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin: 0 6px 8px 0;
+      font-weight: 500;
+    }
+
+    .experience-item {
+      margin-bottom: 1.8rem;
+      position: relative;
+      padding-left: 20px;
+      border-left: 2px solid #e5e5ea;
+    }
+    .experience-item::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+    }
+    .exp-title { font-size: 1.1rem; font-weight: 700; }
+    .exp-time { font-size: 0.85rem; color: var(--text-gray); margin: 2px 0 8px; }
+    .exp-desc { font-size: 0.92rem; color: #3a3a3c; line-height: 1.6; }
+
+    /* 作品分类区块 */
+    .dark-section {
+      background: var(--dark-card-bg);
+      color: #fff;
+      width: 95%;
+      max-width: 1300px;
+      margin: 3rem auto;
+      border-radius: 32px;
+      padding: 4rem 3rem;
+    }
+
+    .dark-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .dark-title { font-size: clamp(1.8rem, 3vw, 2.2rem); font-weight: 800; }
+    .dark-sub { color: #8e8e93; max-width: 400px; font-size: 0.95rem; text-align: right; }
+
+    .category-block { margin-bottom: 3.5rem; }
+    .category-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .category-title::before {
+      content: "";
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--accent-lime);
+      border-radius: 50%;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .works-grid-single {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .work-item {
+      background: var(--dark-card-inner);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .work-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .work-item video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+    .work-meta { padding: 1.5rem; }
+    .work-meta h4 { font-size: 1.15rem; margin-bottom: 6px; }
+    .work-meta p { color: #8e8e93; font-size: 0.9rem; }
+
+    @media (max-width: 900px) {
+      .sticker-left, .sticker-right, .sticker-tag { display: none; }
+      .hero-title { max-width: 100%; }
+      .works-grid, .resume-grid { grid-template-columns: 1fr; }
+      .dark-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .dark-sub { text-align: left; }
+      .dark-section { padding: 2.5rem 1.5rem; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 0;
+      color: var(--text-gray);
+      font-size: 0.9rem;
+      border-top: 1px solid #e5e5ea;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="brand-logo">宋弈雪 | Portfolio</div>
+    <div class="nav-links">
+      <a href="#showreel">作品集锦</a>
+      <a href="#resume">个人简历</a>
+      <a href="#works">作品板块</a>
+      <a href="#contact">联系方式</a>
+    </div>
+    <a href="mailto:956962465@qq.com" class="btn-cta">联系我 →</a>
+  </nav>
+
+  <section class="hero-container">
+    <div class="sticker sticker-left">
+      <img src="avatar1.jpg" alt="avatar1">
+    </div>
+
+    <div class="sticker-tag sticker">
+      <div>8 年 UX 动效经验</div>
+      <div style="font-size:0.75rem; opacity:0.85;">ColorOS 研发团队背景</div>
+    </div>
+
+    <div class="sticker-right sticker">
+      <img src="avatar2.jpg" alt="avatar2">
+    </div>
+
+    <p class="hero-tagline">UX-动效设计师 • 动态视觉与系统微交互设计</p>
+    <h1 class="hero-title">
+      用精细动效 <br>
+      赋予产品 <span class="purple-badge-inline">⚛</span> <span class="highlight-lime">自然交互与生命力</span>
+    </h1>
+
+    <a href="#showreel" class="scroll-down">
+      <span>观看精选作品集锦</span>
+      <div class="scroll-arrow">↓</div>
+    </a>
+  </section>
+
+  <!-- 1. Showreel 精选作品集锦 -->
+  <section class="hero-showreel-section" id="showreel">
+    <div class="hero-banner">
+      <video autoplay loop muted playsinline controls>
+        <source src="showreel.mp4" type="video/mp4">
+        您的浏览器不支持视频播放。
+      </video>
+    </div>
+  </section>
+
+  <!-- 2. 个人简历板块 -->
+  <section class="resume-section" id="resume">
+    <div class="resume-header">
+      <h2>个人简历 / About Me</h2>
+      <p>具备系统级 UX 交互动效与动态视觉设计能力，全流程高效协同。</p>
+    </div>
+
+    <div class="resume-grid">
+      <div>
+        <div class="resume-card" style="margin-bottom: 24px;">
+          <h3>核心技能栈</h3>
+          <p style="font-size:0.9rem; font-weight:700; margin-bottom:8px;">动效设计工具</p>
+          <span class="skill-tag">After Effects</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Cinema 4D</span>
+          <span class="skill-tag">ProtoPie</span>
+
+          <p style="font-size:0.9rem; font-weight:700; margin-top:16px; margin-bottom:8px;">落地交付能力</p>
+          <span class="skill-tag">Lottie / XML</span>
+          <span class="skill-tag">UI/UX 交互逻辑</span>
+          <span class="skill-tag">Android/Web 原理</span>
+          <span class="skill-tag">设计规范输出</span>
+        </div>
+
+        <div class="resume-card" id="contact">
+          <h3>联系方式</h3>
+          <p style="font-size:0.95rem; margin-bottom:8px;"><strong>电话：</strong> 15337240238</p>
+          <p style="font-size:0.95rem; margin-bottom:8px;"><strong>邮箱：</strong> 956962465@qq.com</p>
+          <p style="font-size:0.95rem;"><strong>学历：</strong> 湖北第二师范学院 • 视觉传达</p>
+        </div>
+      </div>
+
+      <div class="resume-card">
+        <h3>工作经历</h3>
+
+        <div class="experience-item">
+          <div class="exp-title">Color OS 系统研发团队（软通动力）- UX动效设计师</div>
+          <div class="exp-time">2022.03 - 2026.04</div>
+          <div class="exp-desc">
+            负责 ColorOS 13.1-16.1 相册、相机、互联网等核心业务交互动效设计与落地，主导 Lottie/XML 等格式的动效实现，两次获项目优化奖；支持 Find N5 等新品发布会动效驻场，跨团队高效协同。
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-title">深圳点猫（编程猫）科技 - 动效制作</div>
+          <div class="exp-time">2020.04 - 2022.03</div>
+          <div class="exp-desc">
+            参与「编程猫」品牌宣传片及科普类动画的动效设计与制作，负责对接编辑团队确认内容逻辑与核心知识点，协调素材标准，保障成片符合品牌调性。
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-title">深圳腾语科技 - MG动画师</div>
+          <div class="exp-time">2019.03 - 2020.03</div>
+          <div class="exp-desc">
+            为教育科技品牌「贝尔编程」制作编程教育课程 MG 动画，将编程逻辑可视化，降低理解门槛。
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="exp-title">深圳道里广告 - 动画师</div>
+          <div class="exp-time">2018.04 - 2019.04</div>
+          <div class="exp-desc">
+            服务华润、保利等头部地产客户，主导品牌活动视频动效设计与视觉包装。
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 精选作品分类板块 -->
+  <section class="dark-section" id="works">
+    <div class="dark-header">
+      <h2 class="dark-title">精选作品板块</h2>
+      <p class="dark-sub">涵盖系统级 UX 交互、互联网微动效、发布会视觉与 MG 品牌宣传动画。</p>
+    </div>
+
+    <!-- 1. 系统动效 -->
+    <div class="category-block">
+      <h3 class="category-title" style="color: var(--accent-lime);">01. 系统动效 (System Motion)</h3>
+      <div class="works-grid">
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="system2.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>ColorOS 核心交互动效</h4>
+            <p>系统核心组件打磨，Lottie & XML 动效研发落地方案</p>
+          </div>
+        </div>
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="system1.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>手势微交互动效</h4>
+            <p>基于物理阻尼算法与用户体验规划的系统级交互机制</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 互联网动效 -->
+    <div class="category-block">
+      <h3 class="category-title" style="color: #6330ff;">02. 互联网动效 (Internet & Web Motion)</h3>
+      <div class="works-grid">
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="web1.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>App 微交互与反馈机制</h4>
+            <p>Figma / Protopie 高保真原型验证与 Web/App 端动效适配</p>
+          </div>
+        </div>
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="web2.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>组件库动态规范建构</h4>
+            <p>与前端团队无缝协同，规范化的矢量动效交付</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 发布会动效 -->
+    <div class="category-block">
+      <h3 class="category-title" style="color: #9d7aff;">03. 发布会动效 (Event & Keynote Motion)</h3>
+      <div class="works-grid">
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="event1.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>Find N5 新品发布会动效</h4>
+            <p>发布会现场大屏动态视觉演示与现场驻场保障</p>
+          </div>
+        </div>
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="event2.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>Keynote 动态演绎</h4>
+            <p>二维动态视觉呈现</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. MG动效 -->
+    <div class="category-block">
+      <h3 class="category-title" style="color: #ff9500;">04. MG 动效 (MG Animation)</h3>
+      <div class="works-grid-single">
+        <div class="work-item">
+          <video autoplay loop muted playsinline controls><source src="motion.mp4" type="video/mp4"></video>
+          <div class="work-meta">
+            <h4>Motion Graphics</h4>
+            <p>逻辑可视化与科普类 MG 动画制作，降低用户理解门槛</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    <p>© 2026 宋弈雪. All Rights Reserved. Designed for Motion Design & UX.</p>
+  </footer>
+
+</body>
+</html>
