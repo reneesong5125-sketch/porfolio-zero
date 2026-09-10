@@ -72,6 +72,7 @@
       margin-bottom: 5rem;
       position: relative;
       text-align: center;
+      padding: 0 2rem;
     }
 
     .hero-tagline {
@@ -134,7 +135,7 @@
       padding: 6px;
       z-index: 2;
     }
-    .sticker-left img {
+    .sticker-left img, .sticker-left video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -169,7 +170,7 @@
       padding: 6px;
       z-index: 2;
     }
-    .sticker-right img {
+    .sticker-right img, .sticker-right video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -356,7 +357,7 @@
     .work-meta h4 { font-size: 1.15rem; margin-bottom: 6px; }
     .work-meta p { color: #8e8e93; font-size: 0.9rem; }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1024px) {
       .sticker-left, .sticker-right, .sticker-tag { display: none; }
       .hero-title { max-width: 100%; }
       .works-grid, .resume-grid { grid-template-columns: 1fr; }
@@ -388,8 +389,11 @@
   </nav>
 
   <section class="hero-container">
+    <!-- 左侧贴纸：改为小视频/或换成 .jpg 图像 -->
     <div class="sticker sticker-left">
-      <img src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" alt="avatar1">
+      <video autoplay loop muted playsinline>
+        <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+      </video>
     </div>
 
     <div class="sticker-tag sticker">
@@ -417,7 +421,7 @@
   <section class="hero-showreel-section" id="showreel">
     <div class="hero-banner">
       <video autoplay loop muted playsinline controls>
-        <source src="movie.mp4" type="video/mp4">
+        <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
         您的浏览器不支持视频播放。
       </video>
     </div>
@@ -506,14 +510,18 @@
       <h3 class="category-title" style="color: var(--accent-lime);">01. 系统动效 (System Motion)</h3>
       <div class="works-grid">
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="系统动效" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>ColorOS 核心交互动效</h4>
             <p>系统核心组件打磨，Lottie & XML 动效研发落地方案</p>
           </div>
         </div>
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="系统动效" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>手势微交互动效</h4>
             <p>基于物理阻尼算法与用户体验规划的系统级交互机制</p>
@@ -527,14 +535,18 @@
       <h3 class="category-title" style="color: #6330ff;">02. 互联网动效 (Internet & Web Motion)</h3>
       <div class="works-grid">
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="web1.mp4" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>App 微交互与反馈机制</h4>
             <p>Figma / Protopie 高保真原型验证与 Web/App 端动效适配</p>
           </div>
         </div>
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="web2.mp4" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>组件库动态规范建构</h4>
             <p>与前端团队无缝协同，规范化的矢量动效交付</p>
@@ -548,14 +560,18 @@
       <h3 class="category-title" style="color: #9d7aff;">03. 发布会动效 (Event & Keynote Motion)</h3>
       <div class="works-grid">
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="event1.mp4" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>Find N5 新品发布会动效</h4>
             <p>发布会现场大屏动态视觉演示与现场驻场保障</p>
           </div>
         </div>
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="event2.mp4" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>Keynote 动态演绎</h4>
             <p>二维动态视觉呈现</p>
@@ -569,7 +585,9 @@
       <h3 class="category-title" style="color: #ff9500;">04. MG 动效 (MG Animation)</h3>
       <div class="works-grid-single">
         <div class="work-item">
-          <video autoplay loop muted playsinline controls><source src="motion.mp4" type="video/mp4"></video>
+          <video autoplay loop muted playsinline controls>
+            <source src="https://github.com/reneesong5125-sketch/porfolio-zero/releases/download/banner/movie.mp4" type="video/mp4">
+          </video>
           <div class="work-meta">
             <h4>Motion Graphics</h4>
             <p>逻辑可视化与科普类 MG 动画制作，降低用户理解门槛</p>
